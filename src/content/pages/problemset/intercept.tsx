@@ -47,7 +47,6 @@ export function intercept(): void {
                 const sortOrder = body.variables.filters?.sortOrder
 
                 const params = parseParams()
-
                 if (params.custom) {
                   const listId = body.variables.filters?.listId
                   // 如果参数中包含某个题单，当前有没有这个题单的数据，则需要去请求这个题单的数据
@@ -82,6 +81,7 @@ export function intercept(): void {
                         // 等待所需数据都加载完成
                         // TODO: 尝试设计一个更优雅的实现
                         await awaitFn(() => {
+                          return true
                           const state = store.getState()
                           if (!state.questions.ids.length) return false
                           if (
